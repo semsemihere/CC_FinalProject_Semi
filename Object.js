@@ -45,21 +45,22 @@ class Circle{
 
 
 class Square{
-  constructor(x, y){
+  constructor(x, y, w, h){
     this.x = x;
     this.y = y;
-    this.width = 40;
-    this.height = 40;
+    this.width = w;
+    this.height = h;
     this.count = 0;
 
     // store original values
-    orgSqrW = 40;
-    orgSqrH = 40;
+    orgSqrW = w;
+    orgSqrH = h;
 
 
   }
 
   show(){
+    noStroke();
     fill(247, 232, 193);
     rect(this.x, this.y, this.width, this.height, 10);
   }
@@ -94,6 +95,27 @@ class Square{
           this.count = 0;
         }
       }
+    }
+  }
+}
+
+class Drink{
+  contructor(){
+  }
+
+  show(x,y){
+    animation(drink, x, y);
+  }
+
+  clicked(){
+    let d = dist(mouseX, mouseY, 90, 310);
+    console.log(mouseX, mouseY, d);
+    if(d < 50){
+      drink.play();
+      // console.log(d);
+    }
+    else{
+      drink.stop();
     }
   }
 }
