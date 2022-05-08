@@ -1,121 +1,197 @@
-let cirCount, origCircX, origCircY, orgSqrH, orgSqrW;
+//// Object.js
 
-class Circle{
-  constructor(x, y){
-    // store the original position
-    origCircX = x;
-    origCircY = y;
-    // counter to reset position
-    cirCount = 0; // 0 is before, 1 is after
+//// Variables Definitions
+// For start
+// bools for screen trasitions
+let start = true; // true in the beginning
+let room1 = false;
+let room2 = false;
+let room3 = false;
 
+let width = 600;
+let height = 600;
+
+
+// Room 1
+
+
+// Room 2
+let white = true; // check the rose color
+let talk = false; // start talking once clicked
+let num = 1;
+let hidden = false;
+let hareline;
+let dormouseButton;
+let hareButton;
+// hare's script
+let script = [
+  "Dormouse! Go to the teapot!",
+  "Why is a raven like a writing desk?",
+  "You know dormouse wants to go into the teapot",
+  "'I like what I get' is the same thing as 'I get what I like'!",
+  "Twinkle, twinkle, little bat! How I wonder what you're",
+  "Tell us a story!",
+  "Heart Queen wanted red roses, not white!",
+  "I deny it!",
+  "Then you should say what you mean"
+];
+
+
+
+//// Class Definitions
+//// Made buttton class a base class
+// checks click and hover
+class Button{
+  constructor(x, y,image){
     this.x = x;
     this.y = y;
+    this.img = image;
   }
 
-  show(){
-    fill(153, 174, 191);
-    noStroke();
-    ellipse(this.x, this.y, 100, 100);
+  display(){
+    image(this.img, this.x, this.y);
   }
 
-  reset(){
-    this.x = origCircX;
-    this.y = origCircY;
+  // tell if the object is hovered
+  // returns bool
+  hover() {
+    if (mouseX > this.x && mouseX < this.x + this.img.width && mouseY > this.y && mouseY < this.y + this.img.height) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  move(){
-    this.x -= 70;
-  }
-
-  clicked(){
-    let d = dist(mouseX, mouseY, this.x, this.y);
-    if(d < 50){
-      if (cirCount == 0) {
-        this.move();
-        cirCount = 1;
-      }
-      else{
-        this.reset();
-        cirCount = 0;
+  // tell if the object is clicked
+  // returns bool
+  clicked() {
+    if(mouseIsPressed){
+      if (mouseX > this.x && mouseX < this.x + this.img.width && mouseY > this.y && mouseY < this.y + this.img.height) {
+        console.log("clicked")
+        return true;
+      } else {
+        return false;
       }
     }
   }
 }
 
-
-
-class Square{
-  constructor(x, y, w, h){
-    this.x = x;
-    this.y = y;
-    this.width = w;
-    this.height = h;
-    this.count = 0;
-
-    // store original values
-    orgSqrW = w;
-    orgSqrH = h;
-
-
+//// ROOM 1
+class Food extends Button{
+  constructor(x, y, image){
+    super(x,y,image);
   }
 
-  show(){
-    noStroke();
-    fill(247, 232, 193);
-    rect(this.x, this.y, this.width, this.height, 10);
+  display(){
+    image(this.img, this.x, this.y);
   }
 
-  reset(){
-    // this.x = originalX;
-    // this.y = originalY;
-    this.width = orgSqrW;
-    this.height = orgSqrH;
-  }
-
-  zoom(){
-    this.width = 200;
-    this.height = 200;
-  }
-
-  // Move
-  clicked(){
-
-    if(cirCount == 1){
-      if (this.count == 0) {
-        let d = dist(mouseX, mouseY, this.x + 20, this.y + 20);
-        if(d < 20){
-          this.zoom();
-          this.count = 1;
-        }
-      }
-      else{
-        let d = dist(mouseX, mouseY, this.x + 100, this.y + 100);
-        if(d < 120){
-          this.reset();
-          this.count = 0;
-        }
-      }
-    }
+  // when the food button is sclicked, use the food to get big/small
+  use(){
+      console.log('used')
+      regular = false;
+      // big = true;
   }
 }
 
-class Drink{
-  contructor(){
+//// ROOM 2
+// Paint class
+// inherited from the Button class
+class Paint extends Button{
+  constructor(x, y, image){
+    super(x,y,image);
   }
 
-  show(x,y){
-    animation(drink, x, y);
+  display() {
+    stroke(0);
+
+    image(this.img, this.x, this.y);
+    // if clicked, and if the roses are not already painted,
+    // paint the rose
+    if(white){
+      if(this.clicked()){
+        // console.log("tint")
+        white = false;
+        tint(255, 0, 0);
+      }
+    }
+    else{ // already clicked
+      tint(255, 0, 0);
+    }
+
+    rose.resize(70,70);
+    image(rose, 100, 150); // middle
+    image(rose, 180, 180); // right
+    image(rose, 30, 190); // left
+  }
+}
+
+// Drag class
+// inherited from the Button class
+// used for the draggable objects
+class Drag extends Button{
+  constructor(x, y, image){
+    super(x,y,image);
+    this.dragging = false;
+    this.offsetX = 0;
+    this.offsetY = 0;
   }
 
-  clicked(){
-    let d = dist(mouseX, mouseY, 90, 310);
-    console.log(mouseX, mouseY, d);
-    if(d < 50){
-      drink.play();
-      // console.log(d);
+  display() {
+    // update the x, y position
+    this.update();
+    if(!hidden){ // if not in teapot
+      image(this.img, this.x, this.y);
     }
-    else{
-      drink.stop();
+  }
+
+  update() {
+      // Adjust location if being dragged
+    if (this.dragging) {
+      this.x = mouseX + this.offsetX;
+      this.y = mouseY + this.offsetY;
+      // check if dormouse is dragged to the teapot
+      if(this.x > 300 && this.x < 300 + teapot.width && this.y > 400 && this.y < 400 + teapot.height){
+        hidden = true;
+      }
     }
+
+  }
+
+  pressed() {
+    if(this.clicked()){
+      // Did I click on the rectangle?
+      this.dragging = true;
+      // If so, keep track of relative location of click to corner of rectangle
+      this.offsetX = this.x-mouseX;
+      this.offsetY = this.y-mouseY;
+    }
+  }
+
+  released() {
+    // Quit dragging
+    this.dragging = false;
+  }
+
+}
+
+// Hare class
+// for hare to randomize the speech
+class Hare extends Button{
+  constructor(x, y, image){
+    super(x,y,image);
+  }
+
+  display(){
+    image(this.img, this.x, this.y)
+  }
+
+  pressed(){
+    if(this.clicked()){
+      talk = true;
+      // generate random number when pressed
+      randNum();
+    }
+
   }
 }

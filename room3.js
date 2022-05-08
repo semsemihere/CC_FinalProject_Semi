@@ -10,5 +10,5 @@ function roomThree() {
 
   background(0);
   fill(255);
-  text("To be continue..")
+  text("To be continue..",300, 300)
 }

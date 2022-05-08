@@ -40,12 +40,14 @@ Creating an image Button
   https://editor.p5js.org/kjhollen/sketches/dHOoxK_hD
 Creating a draggable object
   https://editor.p5js.org/icm/sketches/BkRHbimhm
-
+Lily Lin's example
+  https://editor.p5js.org/lillylin/sketches/QqJcyPCdS
 
 [Consideration]
 1. Removing start button after the start Page ---- solved
   - created a function for the start
   - moved the start button into the setup() function
 2. Scrolling the Room up and down
-3. Make Start button as a button object?(to give hovering effect)
-4. Password ?
+  - change the y position (update)
+3. display() function for hare (change so quickly)
+  - generate random number on the mousePressed()

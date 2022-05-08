@@ -8,7 +8,6 @@ const cirSize = 0.05;
 
 function startPage(){
   if(start){
-
      // expand
     scale(width, height);
     background(0);
@@ -33,5 +32,10 @@ function startPage(){
       const r = 0.05 * f; // radius of individual circle
       circle(x,y,r);
     }
+
+
+
+
   }
+
 }
