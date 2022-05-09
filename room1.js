@@ -28,59 +28,58 @@ function roomOne() {
   wall.resize(600, 1300);
 
   // if cake is used; get bigger
-  if(eatUsed){
+  if(eatUsed && !drinkUsed){
     if(yPos < yBig){
-      ++yPos;
+      // console.log(yPos);
+      yPos += 5;
     }
   }
 
   if(drinkUsed){
     if(yPos > ySmall){
-      --yPos;
+      console.log(yPos);
+      yPos -= 5;
     }
   }
+
   image(wall, 0, yPos);
 
   //// Cake
   eat.resize(100,100);
   eatButton = new Food(width/2 - 10, 340, eat);
-  // draw cake if regular
 
-
-
-  //// drink
+  //// Drink
   drink.resize(80,100);
   drinkButton = new Food(width/2 - 120, 100, drink);
-  if(regular){
+
+  //// door
+  door.resize(200,150);
+  let doorButton1 = new Button(10, height-260, door);
+
+
+  if(regular && !eatUsed){
     // draw cake if not used
-    if(!eatUsed){
       eatButton.display();
-    }
-    // when cake is eaten, get bigger
-    else{
-      regular = false;
-      big = true;
-    }
   }
-  else if(big){
-    // draw drink if not used
-    if(!drinkUsed){
+
+  if(big && !drinkUsed){
+    if(yPos == yBig){
       drinkButton.display();
     }
-    else{
-      big = false;
-      small = true;
+  }
+
+  if(small){
+    if(yPos == ySmall){
+      doorButton1.display();
+      // if the open door is clicked, move to room3
+      if(doorButton1.clicked()){
+        // openDoorButton1.display();
+        roomTwo();
+      }
     }
   }
-  //// Door
 
 
 
-
-
-  //// Drink Object
-  // drink.resize(100,130);
-  // let drinkButton = new Button(width/2, height/2 + 20, drink);
-  // drinkButton.display();
 
 }

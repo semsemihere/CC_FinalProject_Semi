@@ -62,7 +62,6 @@ function draw() {
   }
   else if(room1){
     roomOne();
-    // eatButton.display();
   }
   else if(room2){
     roomTwo();
@@ -79,10 +78,14 @@ function mousePressed(){
     if(eatButton.clicked()){
       eatButton.use();
       eatUsed = true;
+      big = true;
+      regular = false;
     }
     if(drinkButton.clicked()){
       drinkButton.use();
-      drinkUsed = true; 
+      drinkUsed = true;
+      big = false;
+      small = true;
     }
 
     // eatButton.display();

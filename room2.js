@@ -30,19 +30,19 @@ function roomTwo() {
   // draw the door if roses are Red
   door.resize(150,100);
 
-  let doorButton = new Button(100, 220, door)
+  let doorButton2 = new Button(100, 220, door)
   if(!white){
     // image(door, 100, 220);
-    doorButton.display();
+    doorButton2.display();
     // if the dormouse is hidden and door is clicked
     // open the door
     if(!white && hidden){
       // overdraw the door by the opened door
       opendoor.resize(150,100);
-      let openDoorButton = new Button(100,220,opendoor);
-      openDoorButton.display();
+      let openDoorButton2 = new Button(100,220,opendoor);
+      openDoorButton2.display();
       // if the open door is clicked, move to room3
-      if(openDoorButton.clicked()){
+      if(openDoorButton2.clicked()){
         room2 = false;
         room3 = true;
         roomThree();
