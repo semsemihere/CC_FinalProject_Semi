@@ -23,8 +23,11 @@ Escape Room
   - door opens when dormouse is in the teapot and roses are Red
 
 4. Room 3: Queen of Hearts Theme
-  -
+  - Use password input to pass the room
+  - simple quiz
 
+5. Ending page
+  -
 
 
 [References]
@@ -42,6 +45,8 @@ Creating a draggable object
   https://editor.p5js.org/icm/sketches/BkRHbimhm
 Lily Lin's example
   https://editor.p5js.org/lillylin/sketches/QqJcyPCdS
+Input
+  https://p5js.org/reference/#/p5/input
 
 [Consideration]
 1. Removing start button after the start Page ---- solved

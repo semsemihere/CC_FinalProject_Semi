@@ -10,7 +10,9 @@ function roomTwo() {
   button.hide();
 
   //// Background
-  background(255,195,107);
+  // background(255,195,107);
+  forest.resize(600,600);
+  image(forest, 0, 0);
 
   // note that they must be in order; image that goes on top should be called later
 

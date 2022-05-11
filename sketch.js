@@ -27,7 +27,14 @@ function preload(){
   teapot = loadImage("assets/room2/teapot.png")
   dormouse = loadImage("assets/room2/dormouse.png")
   hare = loadImage("assets/room2/hare.png")
+  forest = loadImage("assets/room2/forest.png")
 
+  // room 3
+  queen = loadImage("assets/room3/queen.png")
+  paper = loadImage("assets/room3/paper.png")
+
+  // ending
+  cheshire = loadImage("assets/cheshire.png")
 }
 
 
@@ -48,7 +55,6 @@ function setup() {
   button.style('font-size: 32px');
   button.style('font-family: font');
   // when start button is clicked, move to room 1
-  // button.mousePressed(roomOne);
   button.mousePressed(roomOne);
 
   //// Interactive Objects that should be defined
@@ -57,6 +63,9 @@ function setup() {
 }
 
 function draw() {
+  // roomThree();
+  // end();
+
   if(start){
     startPage();
   }
@@ -68,6 +77,9 @@ function draw() {
   }
   else if(room3){
     roomThree();
+  }
+  else{
+    end();
   }
 }
 
