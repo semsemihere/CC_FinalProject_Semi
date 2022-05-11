@@ -3,7 +3,7 @@
 
 function preload(){
   // font
-  font = loadFont('assets/Tapestry-Regular.ttf');
+  font = loadFont('assets/Macondo-Regular.ttf');
   // image for all
   door = loadImage("assets/door.png")
   opendoor = loadImage("assets/openDoor.png")
@@ -28,15 +28,16 @@ function preload(){
   dormouse = loadImage("assets/room2/dormouse.png")
   hare = loadImage("assets/room2/hare.png")
   forest = loadImage("assets/room2/forest.png")
+  bubble = loadImage("assets/room2/speech.png")
 
   // room 3
   queen = loadImage("assets/room3/queen.png")
   paper = loadImage("assets/room3/paper.png")
+  room = loadImage("assets/room3/room.png")
 
   // ending
   cheshire = loadImage("assets/cheshire.png")
 }
-
 
 function setup() {
   createCanvas(width, height);
@@ -44,28 +45,27 @@ function setup() {
   // default font
   textFont(font);
 
-
   // starting page is called in the beginning
   // button should disappear when next room is called
-  button = createButton('Start');
-  button.position(width/2-35, height/2-25);
+  button = createButton('Click Me!');
+  button.position(230, 275);
   button.style('color: white')
   button.style('background-color:transparent');
   button.style('border: none');
-  button.style('font-size: 32px');
+  button.style('font-size: 30px');
   button.style('font-family: font');
   // when start button is clicked, move to room 1
   button.mousePressed(roomOne);
 
   //// Interactive Objects that should be defined
   dormouseButton = new Drag(220, 300, dormouse);
-  hareButton = new Hare(450, 230, hare);
+  hareButton = new Hare(430, 200, hare);
+
+  userInput = createInput('Press enter to submit');
+  userInput.hide();
 }
 
 function draw() {
-  // roomThree();
-  // end();
-
   if(start){
     startPage();
   }
@@ -83,7 +83,6 @@ function draw() {
   }
 }
 
-
 function mousePressed(){
   //// Room 1
   if(room1){
@@ -99,20 +98,22 @@ function mousePressed(){
       big = false;
       small = true;
     }
-
-    // eatButton.display();
   }
 
   //// Room 2
   else if(room2){
     dormouseButton.pressed();
-    // hare talking
-    hareButton.pressed();
   }
-
 }
 
 function mouseReleased(){
   //// Room 2
   dormouseButton.released();
+}
+
+function keyPressed(){
+  // if enter
+  if(room3 && keyCode === 13){
+    checker();
+  }
 }

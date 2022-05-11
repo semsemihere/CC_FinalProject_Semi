@@ -11,11 +11,27 @@ let room3 = false;
 let width = 600;
 let height = 600;
 
+let timer;
 
-// Room 1
+//// Room 1
+// constant values of wall's height on regular, big, small
+let regular = true;
+let yRegular = -250;
+let big = false;
+let yBig = 0;
+let small = false;
+let ySmall = -680;
 
+// update the yPos of the wall
+let yPos = -250;
 
-// Room 2
+let eatButton;
+let eatUsed = false;
+
+let drinkButton;
+let drinkUsed = false;
+
+//// Room 2
 let white = true; // check the rose color
 let talk = false; // start talking once clicked
 let num = 1;
@@ -36,6 +52,19 @@ let script = [
   "Then you should say what you mean"
 ];
 
+//// Room 3
+let userInput;
+let userAnswer;
+let ANSWER = "DJHCS"
+let queenline = ["You've placed one joker and four aces", "with different suits facedown on a table.",
+"Use the hints below to determine the position for each card.",
+"1. The club is to the immediate right of the heart.",
+"2. Neither the diamond nor the joker is next to the spade.",
+"3. Neither the joker nor the diamond is next to the club.",
+"4. Neither the diamond nor the spade is next to the heart.",
+"Please type answer in 5 capital letters, using following format",
+"Diamond => D, Heart => H, Spade => S, club => C, Joker => J"
+]
 
 
 //// Class Definitions
@@ -74,6 +103,11 @@ class Button{
       }
     }
   }
+
+  // update the y axis of the object
+  update(newY){
+    this.y = newY;
+  }
 }
 
 //// ROOM 1
@@ -85,6 +119,7 @@ class Food extends Button{
   display(){
     image(this.img, this.x, this.y);
   }
+
 
   // when the food button is sclicked, use the food to get big/small
   use(){
@@ -155,7 +190,6 @@ class Drag extends Button{
         hidden = true;
       }
     }
-
   }
 
   pressed() {
@@ -192,6 +226,5 @@ class Hare extends Button{
       // generate random number when pressed
       randNum();
     }
-
   }
 }

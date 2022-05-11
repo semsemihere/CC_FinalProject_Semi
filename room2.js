@@ -10,12 +10,11 @@ function roomTwo() {
   button.hide();
 
   //// Background
-  // background(255,195,107);
+  background(255,195,107);
   forest.resize(600,600);
   image(forest, 0, 0);
 
-  // note that they must be in order; image that goes on top should be called later
-
+  // note that they must be in order; image that goes on top should be called later..
   //// Bush Part
   // bush, rose, paint, door...
   bush.resize(400, 250);
@@ -43,35 +42,40 @@ function roomTwo() {
       opendoor.resize(150,100);
       let openDoorButton2 = new Button(100,220,opendoor);
       openDoorButton2.display();
+      fill(255);
+      textSize(22);
+      textStyle(BOLD);
+      textAlign(CENTER);
+      text("Click Me!", 175, 270);
       // if the open door is clicked, move to room3
       if(openDoorButton2.clicked()){
         room2 = false;
         room3 = true;
         roomThree();
       }
-
     }
-
   }
-
   //// Table Part
   // hatter and hare
   image(hatter, 250, 70);
   // hare is clickable
   hareButton.display();
-  // hareline will be randomly generated
-  hareline = script[num];
-  if(talk){
-    // bubble
-    noStroke();
-    fill(10,10,10,70);
-    ellipse(480, 100, 200, 180);
-    fill(0);
-    textSize(18);
-    textAlign(CENTER);
-    text(hareline, 390, 80, 180, 100);
+  // hareline will be randomly generated every 2 seconds
+  noStroke();
+  // fill(10,10,10,90);
+  // ellipse(480, 100, 200, 180);
+  bubble.resize(200, 250);
+  image(bubble, 380, 0);
+  fill(0);
+  textSize(20);
+  textStyle(BOLD);
+  textAlign(CENTER);
+  if(millis()-timer >= 2000){
+    randNum();
+    hareline = script[num];
+    timer = millis();
   }
-
+  text(hareline, 400, 60, 160, 100);
 
   image(table, 70, 0);
 
@@ -81,7 +85,6 @@ function roomTwo() {
   // dormouse will be draggable object
   dormouse.resize(100, 80);
   dormouseButton.display();
-
 }
 
 //// Function definition

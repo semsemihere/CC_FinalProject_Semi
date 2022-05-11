@@ -5,7 +5,6 @@ let t;
 const frames = 4000;
 const cirSize = 0.05;
 
-
 function startPage(){
   if(start){
      // expand
@@ -32,10 +31,5 @@ function startPage(){
       const r = 0.05 * f; // radius of individual circle
       circle(x,y,r);
     }
-
-
-
-
   }
-
 }
